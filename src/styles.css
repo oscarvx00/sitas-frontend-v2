@@ -1,0 +1,35 @@
+html { 
+    height: 100vh; 
+    width: 100vw; 
+    max-width: 100vh;
+    
+}
+body { 
+    height: 100vh; 
+    overflow: hidden;
+    margin: 0; 
+    font-family: 'Montserrat', sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Signika+Negative:wght@500;600;700&display=swap');
+
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #242424;
+    padding-bottom: 50px;
+}
+
+.app-container{
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+.router-container{
+    flex: 1 1 auto;
+}

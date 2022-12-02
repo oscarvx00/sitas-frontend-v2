@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './Request.module.css'
 import { checkUserLogged } from '../../services/login.service'
+import { sendRequest } from '../../services/request.service'
 import { useNavigate } from "react-router-dom";
 
 export function Request() {
@@ -38,7 +39,6 @@ export function Request() {
 
     function focusOnLast(event) {
         event.preventDefault()
-        console.log(focusOnLastFlag)
         if (event.key == 'Enter') {
             if(focusOnLastFlag){
                 setFocusOnLastFlag(false)
@@ -68,12 +68,21 @@ export function Request() {
     function remove(index) {
         const updatedData = [...data]
         updatedData.splice(index,1)
-        console.log(updatedData)
         setData(updatedData)
     }
 
-    function downloadClicked() {
+    async function downloadClicked() {
+        if(data.filter(it => it.name && it.name.trim()).length === 0){
+            alert("No data")
+            return
+        }
 
+        try {
+            await sendRequest(data.filter(it => it.name).map(it => it.name))
+            goToDownloadClicked()
+        } catch(ex) {
+            console.error(ex)
+        }
     }
 
 
@@ -97,8 +106,8 @@ export function Request() {
             </div>
             <div className={styles.list_container}>
                 {data.map((element, index) => (<div key={index} className={styles.song_list_item}>
-                    <p  ref={ref => {dataRefArray.current[index] = ref}} contentEditable="true" onKeyDown={event => handleKeyDown(event, index)} onKeyUp={focusOnLast} onBlur={(event) => addRow(event, index)} suppressContentEditableWarning={true}>{element.name}</p>
-                    <div className={styles.remove_row} onClick={() => remove(index)}>X</div>
+                    <p  ref={ref => {dataRefArray.current[index] = ref}} contentEditable="true" onKeyDown={event => handleKeyDown(event, index)} onKeyUp={focusOnLast} onBlur={(event) => addRow(event, index)} suppressContentEditableWarning={true} data-testid="download-request-input">{element.name}</p>
+                    <div className={styles.remove_row} onClick={() => remove(index)} data-testid="download-request-delete">X</div>
                 </div>))}
             </div>
             <div className={styles.download_button} onClick={downloadClicked}>DOWNLOAD</div>

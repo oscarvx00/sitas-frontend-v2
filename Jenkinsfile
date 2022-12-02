@@ -24,7 +24,7 @@ pipeline {
                     
                     sh "docker run --name sitas-frontend-test-container-v2 sitas-frontend-test-v2"
                     sh "mkdir coverage"
-                    sh "docker cp sitas-frontend-test-container-v2:/sitas-frontend-test-v2/coverage/sitas/. ./coverage"
+                    sh "docker cp sitas-frontend-test-container-v2:/sitas-frontend-test-v2/coverage/. ./coverage"
                     sh "docker container rm sitas-frontend-test-container-v2"
                     //sh "docker image rm sitas-frontend-test"
                     

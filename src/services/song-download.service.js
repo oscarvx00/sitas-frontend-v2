@@ -20,6 +20,5 @@ export async function downloadSong(downloadId) {
             withCredentials: true
         }
     )
-    console.log(response)
     return response.data.val
 }

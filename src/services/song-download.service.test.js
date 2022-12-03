@@ -1,5 +1,7 @@
 const functions = require('./song-download.service')
 
+const axios = require('axios')
+
 
 const TEST_SONG_DOWNLOADS_DATA = [
     { name: "dasd", downloadId: "90db2112-d673-4d7b-9b69-791ab2b96cc9", ready: false },
@@ -10,13 +12,13 @@ jest.mock('axios')
 
 
 test('getSongDownloads', async () => {
-    axios.get.mockIMplementation(() => Promise.resolve(
+    axios.get.mockImplementation(() => Promise.resolve(
         {
             data: TEST_SONG_DOWNLOADS_DATA
         }
     ))
 
-    const result = functions.getSongDownloads()
+    const result = await functions.getSongDownloads()
 
     expect(result).toEqual(TEST_SONG_DOWNLOADS_DATA)
 })

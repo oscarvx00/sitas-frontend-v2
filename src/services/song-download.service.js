@@ -1,4 +1,4 @@
-import axios from 'axios'
+const axios = require('axios')
 
 
 const REACT_APP_BACKEND_ENDPOINT = process.env.REACT_APP_BACKEND_ENDPOINT

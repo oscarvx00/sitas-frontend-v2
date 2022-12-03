@@ -1,0 +1,75 @@
+
+.top_nav {
+    padding: 15px 70px;
+    border: 2px solid #E9FD01;
+    border-top: none;
+    border-radius: 0px 0px 20px 20px;
+    cursor: pointer;
+}
+
+.top_nav:hover {
+    background-color: #ebff0f27;
+}
+
+.top_nav p{
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    margin: 0px;
+}
+
+.list_container {
+    margin-top: 70px;
+    width: 70%;
+    max-height: 60vh;
+    overflow: auto;
+
+}
+
+.song_list_item_container div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #7305FF;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 10px;
+    color: white;
+    
+}
+
+.song_list_item {
+    flex: 1;
+}
+
+.song_list_item * {
+    margin: 0px;
+    
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+
+.song_list_item p {
+    flex: 1;
+    margin: 0px 10px;
+}
+
+.song_list_item_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.song_list_item_download_ready {
+    cursor: pointer;
+}
+
+.song_list_item_download_ready:hover {
+    background-color: #7105ff1c;
+}
+
+.song_list_item_download_notready {
+    border-color: gray !important;
+}

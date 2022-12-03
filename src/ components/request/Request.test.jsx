@@ -20,17 +20,13 @@ beforeEach(() => {
     render(<Request/>)
 })
 
-test('renders Request component', () => {
-    
-
-})
 
 test('Go to download', () => {
 
     
     userEvent.click(screen.getByText("GO TO MY DOWNLOADS"))
 
-    expect(mockedNavigate).toHaveBeenCalledWith("/download")
+    expect(mockedNavigate).toHaveBeenCalledWith("/")
 })
 
 test('Input value', async () => {

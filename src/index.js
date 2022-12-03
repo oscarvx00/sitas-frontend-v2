@@ -5,6 +5,7 @@ import './styles.css'
 import Layout from './Layout';
 import {Login} from './ components/login/Login'
 import { Request } from './ components/request/Request';
+import { SongDownload } from './ components/song-download/SongDownload';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,7 +13,7 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout />}>
-          {/*<Route index element={<Login/>}/>*/}
+          {<Route index element={<SongDownload/>}/>}
           <Route path="request" element={<Request />} />
           <Route path="login" element={<Login />} />
         </Route>

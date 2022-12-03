@@ -16,7 +16,7 @@ export function Request() {
         async function checkUserLoggedC() {
             const userLogged = await checkUserLogged()
             if (!userLogged) {
-                //navigate('/login')
+                navigate('/login')
             }
         }
 
@@ -27,7 +27,7 @@ export function Request() {
     //let focusOnLastFlag = false
 
     function goToDownloadClicked() {
-        navigate('/download')
+        navigate('/')
     }
 
     function handleKeyDown(event, index) {

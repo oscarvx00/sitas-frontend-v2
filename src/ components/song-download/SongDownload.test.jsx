@@ -29,34 +29,37 @@ jest.mock('../../services/song-download.service', () => ({
 }))
 
 
-beforeEach( () => {
+describe('SongDownload component', () => {
+    beforeEach( () => {
 
-    getSongDownloads.mockImplementation(mockedGetSongDownloads)
-    downloadSong.mockImplementation(mockedDownloadSong)
-
-    act(() => {
-        render(<SongDownload/>)
-    })
-})
-
-test('goToSearchClicked', () => {
-    userEvent.click(screen.getByText("GO TO SEARCH"))
-
-    expect(mockedNavigate).toHaveBeenCalledWith("/request")
-})
-
-test('downloadSongClicked', async () => {
-
-    window.open = () => {} 
+        getSongDownloads.mockImplementation(mockedGetSongDownloads)
+        downloadSong.mockImplementation(mockedDownloadSong)
     
-    await waitFor(() => expect(screen.getAllByTestId("download_song_enabled").length).toBe(1))
-    
-    act(() => {
-        userEvent.click(screen.getByTestId("download_song_enabled"))
-        expect(downloadSong).toHaveBeenCalledWith('0838039b-c81e-4c7a-bd01-d4327d7745d4')
+        act(() => {
+            render(<SongDownload/>)
+        })
     })
     
+    test('goToSearchClicked', () => {
+        userEvent.click(screen.getByText("GO TO SEARCH"))
+    
+        expect(mockedNavigate).toHaveBeenCalledWith("/request")
+    })
+    
+    test('downloadSongClicked', async () => {
+    
+        window.open = () => {} 
+        
+        await waitFor(() => expect(screen.getAllByTestId("download_song_enabled").length).toBe(1))
+        
+        act(() => {
+            userEvent.click(screen.getByTestId("download_song_enabled"))
+            expect(downloadSong).toHaveBeenCalledWith('0838039b-c81e-4c7a-bd01-d4327d7745d4')
+        })
+        
+    
+    })
+});
 
-})
 
 

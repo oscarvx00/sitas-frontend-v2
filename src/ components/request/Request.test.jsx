@@ -16,51 +16,54 @@ jest.mock('../../services/request.service', () => ({
     sendRequest : () => {}
 }))
 
-beforeEach(() => {
-    render(<Request/>)
-})
 
-
-test('Go to download', () => {
-
+describe('Request component', () => {
+    beforeEach(() => {
+        render(<Request/>)
+    })
     
-    userEvent.click(screen.getByText("GO TO MY DOWNLOADS"))
-
-    expect(mockedNavigate).toHaveBeenCalledWith("/")
-})
-
-test('Input value', async () => {
-
-
-
-    const input_element = screen.getAllByTestId("download-request-input")[0]
-    userEvent.click(input_element)
-    userEvent.type(input_element, "test_string")
-
-    await waitFor(() => expect(input_element.textContent).toBe("test_string"))
-
-    userEvent.click(screen.getByText("SOUNDCLOUD"))
-    await new Promise(r => setTimeout(r, 1000))
-
-    expect(screen.getAllByTestId("download-request-input").length).toBe(2)
     
-
-})
-
-
-test('Remove last', () => {
-    const input_element = screen.getAllByTestId("download-request-input")[0]
-    userEvent.click(input_element)
-    userEvent.type(input_element, "test_string")
-
-    expect(input_element.textContent).toBe("test_string")
-
-    userEvent.click(screen.getByText("SOUNDCLOUD"))
-
-    expect(screen.getAllByTestId("download-request-input").length).toBe(2)
-
-    const remove_element = screen.getAllByTestId("download-request-delete")[0]
-    userEvent.click(remove_element)
-
-    expect(screen.getAllByTestId("download-request-input").length).toBe(1)
-})
+    test('Go to download', () => {
+    
+        
+        userEvent.click(screen.getByText("GO TO MY DOWNLOADS"))
+    
+        expect(mockedNavigate).toHaveBeenCalledWith("/")
+    })
+    
+    test('Input value', async () => {
+    
+    
+    
+        const input_element = screen.getAllByTestId("download-request-input")[0]
+        userEvent.click(input_element)
+        userEvent.type(input_element, "test_string")
+    
+        await waitFor(() => expect(input_element.textContent).toBe("test_string"))
+    
+        userEvent.click(screen.getByText("SOUNDCLOUD"))
+        await new Promise(r => setTimeout(r, 1000))
+    
+        expect(screen.getAllByTestId("download-request-input").length).toBe(2)
+        
+    
+    })
+    
+    
+    test('Remove last', () => {
+        const input_element = screen.getAllByTestId("download-request-input")[0]
+        userEvent.click(input_element)
+        userEvent.type(input_element, "test_string")
+    
+        expect(input_element.textContent).toBe("test_string")
+    
+        userEvent.click(screen.getByText("SOUNDCLOUD"))
+    
+        expect(screen.getAllByTestId("download-request-input").length).toBe(2)
+    
+        const remove_element = screen.getAllByTestId("download-request-delete")[0]
+        userEvent.click(remove_element)
+    
+        expect(screen.getAllByTestId("download-request-input").length).toBe(1)
+    })
+});

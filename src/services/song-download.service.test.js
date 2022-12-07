@@ -11,15 +11,18 @@ const TEST_SONG_DOWNLOADS_DATA = [
 jest.mock('axios')
 
 
-test('getSongDownloads', async () => {
-    axios.get.mockImplementation(() => Promise.resolve(
-        {
-            data: TEST_SONG_DOWNLOADS_DATA
-        }
-    ))
+describe('Song download service', () => {
+    test('getSongDownloads', async () => {
+        axios.get.mockImplementation(() => Promise.resolve(
+            {
+                data: TEST_SONG_DOWNLOADS_DATA
+            }
+        ))
+    
+        const result = await functions.getSongDownloads()
+    
+        expect(result).toEqual(TEST_SONG_DOWNLOADS_DATA)
+    })
+});
 
-    const result = await functions.getSongDownloads()
-
-    expect(result).toEqual(TEST_SONG_DOWNLOADS_DATA)
-})
 

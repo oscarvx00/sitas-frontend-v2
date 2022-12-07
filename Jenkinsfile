@@ -51,11 +51,11 @@ pipeline {
             steps {
                 sh "docker cp sitas-frontend-test-container-v2:/sitas-frontend-test-v2/junit.xml ./junit.xml"
                 sh "docker container rm sitas-frontend-test-container-v2"
-            }
-            step([$class: 'QTMReportPublisher', disableaction:false, qtmUrl: 'https://newuiqa.qmetry.com/', automationFramework: 'JUNIT', automationHierarchy: '2', testResultFilePath: '/cucumber', qtmAutomationApiKey: '${QMETRY_APIKEY}', project : '7242', release: 'Release 1', cycle: 'Cycle 1', buildName: 'testBuild1', platformName: 'Jenkins', testSName: 'junit pipeline', proxyUrl:'', testSuiteName: 'TC2-TS-116', 
-            testcaseFields: '{"description":"Automated Test case", "testCaseType":"Automated", "testCaseState":"Open", "component":["UI"], "priority":"Blocker", "testcaseOwner":"liza.mathew", "estimatedTime":"143", "userDefinedFields" : {"Integrate" : "Custom Field Testcase"}}',
-            testsuiteFields: '{"description":"Automated Test suite", "testsuiteOwner": "liza.mathew", "testSuiteState": "New", "userDefinedFields": {"Integrate" : "Custom Field Testsuite"}}'
-            ])     
+                [$class: 'QTMReportPublisher', disableaction:false, qtmUrl: 'https://newuiqa.qmetry.com/', automationFramework: 'JUNIT', automationHierarchy: '2', testResultFilePath: '/cucumber', qtmAutomationApiKey: '${QMETRY_APIKEY}', project : '7242', release: 'Release 1', cycle: 'Cycle 1', buildName: 'testBuild1', platformName: 'Jenkins', testSName: 'junit pipeline', proxyUrl:'', testSuiteName: 'TC2-TS-116', 
+                testcaseFields: '{"description":"Automated Test case", "testCaseType":"Automated", "testCaseState":"Open", "component":["UI"], "priority":"Blocker", "testcaseOwner":"liza.mathew", "estimatedTime":"143", "userDefinedFields" : {"Integrate" : "Custom Field Testcase"}}',
+                testsuiteFields: '{"description":"Automated Test suite", "testsuiteOwner": "liza.mathew", "testSuiteState": "New", "userDefinedFields": {"Integrate" : "Custom Field Testsuite"}}'
+                ]
+            }   
         } 
         stage ('Deploy'){
             steps {

@@ -12,6 +12,7 @@ pipeline {
         stage('Test') {
             environment {
                 scannerHome = tool 'SonarQubeScanner'
+                QMETRY_APIKEY = credentials("QMETRY_APIKEY")
             }
             steps {
                 dir('test') {
@@ -25,8 +26,11 @@ pipeline {
                     sh "docker run --name sitas-frontend-test-container-v2 sitas-frontend-test-v2"
                     sh "mkdir coverage"
                     sh "docker cp sitas-frontend-test-container-v2:/sitas-frontend-test-v2/coverage/. ./coverage"
+                    sh "docker cp sitas-frontend-test-container-v2:/sitas-frontend-test-v2/junit.xml ./junit.xml"
                     sh "docker container rm sitas-frontend-test-container-v2"
                     //sh "docker image rm sitas-frontend-test"
+
+                    sh "qmetry-cli import-results -s 'https://qtmcloud.qmetry.com/rest/api/automation/importresult' -apiKey '${QMETRY_APIKEY}' -f 'junit.xml'"
                     
                     withSonarQubeEnv('sonarqube'){
                         sh "${scannerHome}/bin/sonar-scanner"

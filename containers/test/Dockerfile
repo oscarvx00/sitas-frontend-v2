@@ -21,4 +21,4 @@ COPY ./ ./
 #Instal npm packages
 RUN npm install
 
-ENTRYPOINT ["npm", "test", "--", "--coverage", "--watchAll=false"]
+ENTRYPOINT ["npm", "test", "--", "--coverage", "--watchAll=false", "--ci", "--testResultsProcessor=\"jest-junit\""]

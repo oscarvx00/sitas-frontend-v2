@@ -30,7 +30,7 @@ pipeline {
                     sh "docker container rm sitas-frontend-test-container-v2"
                     //sh "docker image rm sitas-frontend-test"
 
-                    sh "qmetry-cli import-results -s 'https://qtmcloud.qmetry.com/rest/api/automation/importresult' -apiKey '${QMETRY_APIKEY}' -f 'junit.xml'"
+                    //sh "qmetry-cli import-results -s 'https://qtmcloud.qmetry.com/rest/api/automation/importresult' -apiKey '${QMETRY_APIKEY}' -f 'junit.xml'"
                     
                     withSonarQubeEnv('sonarqube'){
                         sh "${scannerHome}/bin/sonar-scanner"
@@ -44,6 +44,15 @@ pipeline {
                 }
             }
         }
+        stage('Upload Result to QTM'){
+            environment {
+                QMETRY_APIKEY = credentials("QMETRY_APIKEY")
+            }
+            step([$class: 'QTMReportPublisher', disableaction:false, qtmUrl: 'https://newuiqa.qmetry.com/', automationFramework: 'JUNIT', automationHierarchy: '2', testResultFilePath: '/cucumber', qtmAutomationApiKey: '${QMETRY_APIKEY}', project : '7242', release: 'Release 1', cycle: 'Cycle 1', buildName: 'testBuild1', platformName: 'Jenkins', testSName: 'junit pipeline', proxyUrl:'', testSuiteName: 'TC2-TS-116'     
+            testcaseFields: '{"description":"Automated Test case", "testCaseType":"Automated", "testCaseState":"Open", "component":["UI"], "priority":"Blocker", "testcaseOwner":"liza.mathew", "estimatedTime":"143", "userDefinedFields" : {"Integrate" : "Custom Field Testcase"}}',
+            testsuiteFields: '{"description":"Automated Test suite", "testsuiteOwner": "liza.mathew", "testSuiteState": "New", "userDefinedFields": {"Integrate" : "Custom Field Testsuite"}}'
+            ])     
+        } 
         stage ('Deploy'){
             steps {
                 dir('deploy') {
